@@ -3,7 +3,7 @@ import { Html5QrcodeScanner } from "html5-qrcode"
 
 type Result = string
 
-type Error = string
+type Error = string       
 
 const ScannerComponent = () => {
   const [scanResult, setScanResult] = useState<Result | null>(null)
@@ -18,9 +18,10 @@ const ScannerComponent = () => {
     },true)
 
     scanner.render(success, error)
-    function success(result : Result | null) {
+    function success(result: Result | undefined) {
       scanner.clear()
-      setScanResult(result)
+      setScanResult(window.location.href = result as Result )
+      // handleSr()
     }
 
     function error(err : Error | null) {
@@ -29,14 +30,12 @@ const ScannerComponent = () => {
   }, [])
   return (
     <div>
-    <div>
+    <div style={{fontSize: '10px'}} >
       <h1>Qr code scanner</h1>
-      <h1>Dev: @pr4th4meshh</h1>
-      <h1>NPM Package: HTML5-Qr-Code</h1>
     </div>
       {scanResult ? (
         <div>
-          Scsds: <a href={scanResult}>Click this link to navigate to: </a>
+          Success: <a href={scanResult}>Click this link to navigate to: </a>
           {scanResult}
         </div>
       ) : (
